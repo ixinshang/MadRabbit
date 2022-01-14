@@ -1,0 +1,22 @@
+version: "3"
+services:
+  redis4proxypool:
+    image: redis:alpine
+    container_name: redis4proxypool
+    ports:
+      - "6374:6379"
+  proxypool:
+    image: "ht944/proxypool:latest"
+    container_name: proxypool
+    ports:
+      - "5555:5555"
+    restart: always
+    # volumes:
+    #   - proxypool/crawlers/private:/app/proxypool/crawlers/private
+    environment:
+      REDIS_HOST: redis4proxypool
+      APP_ENV: prod
+      TEST_TIMEOUT: 2
+      API_HOST: 0.0.0.0
+      REDIS_KEY: proxies:jd
+      TEST_URL: https://plogin.m.jd.com/login/login?appid=300&returnurl=https%3A%2F%2Fwq.jd.com%2Fpassport%2FLoginRedirect%3Fstate%3D1101871474843%26returnurl%3Dhttps%253A%252F%252Fhome.m.jd.com%252FmyJd%252Fnewhome.action%253Fsceneval%253D2%2526ufc%253D%2526&source=wq_passport
