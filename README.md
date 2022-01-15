@@ -37,7 +37,6 @@ docker build -t rabbit .
 docker run --name rabbit -d  -v "$(pwd)":/usr/src/Project -p 5701:1234 rabbit 
 ```
 ## 方案二：使用我的镜像
-暂时不要拉，现在只有测试的，最新的还没构建好，网络太差
 ```
 docker pull ht944/rabbit:latest
 ```
