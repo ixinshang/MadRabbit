@@ -34,7 +34,7 @@ docker build -t rabbit .
 ```
 ### 启动
 ```
-docker run --name rabbit -d  -v "$(pwd)":/usr/src/Project -p 5701:1234 rabbit 
+docker run --name rabbit -d  -v "$(pwd)"/Config:/usr/src/Project/Config -p 5701:1234 rabbit:latest
 ```
 ## 方案二：使用我的镜像
 ```
@@ -42,7 +42,7 @@ docker pull ht944/rabbit:latest
 ```
 ### 启动
 ```
-docker run --name rabbit -d  -v "$(pwd)":/usr/src/Project -p 5701:1234 ht944/rabbit:latest
+docker run --name rabbit -d  -v "$(pwd)"/Config:/usr/src/Project/Config -p 5701:1234 ht944/rabbit:latest
 ```
 
 ## 非阿里和腾讯服务器可以忽略这一步:
