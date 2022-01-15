@@ -3,8 +3,9 @@
   "Title": "NolanJDCloud",
   "Closetime": "5",
   "Announcement": "为提高账户的安全性，请关闭免密支付。",
-  "Debug": "true",
   "AutoCaptchaCount": "5",
+  "proxy": "",
+  "proxy_pool": "",
   "Config": [
     {
       "QLkey": 1,
