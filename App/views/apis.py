@@ -89,8 +89,8 @@ async def SendSMS(request: sanic.Request):
             }
         }
         return json(res)
-    subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
     ql_config = get_ql_config(int(qlkey))
+    subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
     ql = RemoteQL(ql_config["QL_CLIENTID"], ql_config["QL_SECRET"], ql_config["QLhost"], ql_config["QLport"])
     print("send_message", state, message, cpc_img_base64)
     if state and not cpc_img_base64 and not message:
@@ -99,7 +99,7 @@ async def SendSMS(request: sanic.Request):
             "message": "",
             "data": {
                 "status": 666,
-                "ckcount": ql_config.get("QL_CAPACITY") - await ql.get_ck_num(),
+                "ckcount": int(ql_config.get("QL_CAPACITY")) - await ql.get_ck_num(),
                 "tabcount": 3,
                 "big": "",
                 "small": ""
@@ -112,7 +112,7 @@ async def SendSMS(request: sanic.Request):
             "message": message,
             "data": {
                 "status": 505,
-                "ckcount": ql_config.get("QL_CAPACITY") - await ql.get_ck_num(),
+                "ckcount": int(ql_config.get("QL_CAPACITY")) - await ql.get_ck_num(),
             }
         }
     else:
@@ -121,7 +121,7 @@ async def SendSMS(request: sanic.Request):
             "message": "出现安全验证,",
             "data": {
                 "status": 666,
-                "ckcount": ql_config.get("QL_CAPACITY") - await ql.get_ck_num(),
+                "ckcount": int(ql_config.get("QL_CAPACITY")) - await ql.get_ck_num(),
                 "tabcount": 3,
                 "big": get_img_base64(small_img_base64),
                 "small": get_img_base64(cpc_img_base64)
@@ -196,8 +196,8 @@ async def VerifyCode(request):
                             "timestamp": item["timestamp"],
                             "remarks": item["remarks"],
                             "qlkey": qlkey,
-                            "ckcount": ql_config.get("QL_CAPACITY") - await ql.get_ck_num(),
-                            "tabcount": config.get("MaxTab") - jd_browser.get_browser_num()
+                            "ckcount": int(ql_config.get("QL_CAPACITY")) - await ql.get_ck_num(),
+                            "tabcount": int(config.get("MaxTab")) - jd_browser.get_browser_num()
                         }
                     }
                 else:
@@ -221,7 +221,7 @@ async def VerifyCode(request):
                             "timestamp": item["id"],
                             "remarks": item["remarks"],
                             "qlkey": qlkey,
-                            "ckcount": ql_config.get("QL_CAPACITY") - await ql.get_ck_num(),
+                            "ckcount": int(ql_config.get("QL_CAPACITY")) - await ql.get_ck_num(),
                             "tabcount": 4
                         }
                     }
