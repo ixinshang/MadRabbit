@@ -67,7 +67,6 @@ async def SendSMS(request: sanic.Request):
                 }
             }
             return json(res)
-        subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
     except Exception as e:
         print(e)
         await jd_browser.destroy_browser(int(data["Phone"]))
@@ -90,6 +89,7 @@ async def SendSMS(request: sanic.Request):
             }
         }
         return json(res)
+    subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
     ql_config = get_ql_config(int(qlkey))
     ql = RemoteQL(ql_config["QL_CLIENTID"], ql_config["QL_SECRET"], ql_config["QLhost"], ql_config["QLport"])
     print("send_message", state, message, cpc_img_base64)
