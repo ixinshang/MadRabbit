@@ -98,8 +98,8 @@ async def get_proxy():
     proxy = config.get("proxy")
     proxy_pool = config.get('proxy_pool')
     if proxy:
-        if not await test_proxy(proxy)
-            exit
+        if not await test_proxy(proxy):
+            exit()
         else:
             return proxy
     elif not proxy_pool:
