@@ -136,6 +136,10 @@ class JDBrowser:
         self.page_dict = {}
         self.un_user_browser = None
         self.un_use_page = None
+        
+    async def init(self):
+        browser = await self.open_browser()
+        await browser.close()
 
     @staticmethod
     async def open_browser() -> Browser:
