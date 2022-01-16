@@ -6,5 +6,5 @@ jd_browser = JDBrowser()
 
 
 def init(app: Sanic):
-    # app.add_task(jd_browser.init())
-    pass
+    app.add_task(jd_browser.init())
+    del jd_browser
