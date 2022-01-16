@@ -1,0 +1,6 @@
+sanic
+requests
+jinja2
+opencv-python-headless
+nest_asyncio
+aiohttp
