@@ -15,5 +15,13 @@
       "QL_SECRET": "xxx",
       "QL_CAPACITY": 40,
     }
+    {
+      "QLkey": 2,
+      "QLName": "阿里云",
+      "QLurl": "http://xxx.xxx.xxx.xxx:5700",
+      "QL_CLIENTID": "xxx",
+      "QL_SECRET": "xxx",
+      "QL_CAPACITY": 40,
+    }
   ]
 }
