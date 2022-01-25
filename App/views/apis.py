@@ -1,9 +1,9 @@
 import re
 import subprocess
-from jinja2 import Environment, PackageLoader, select_autoescape
-from sanic import Blueprint, json
 
 import sanic.request
+from jinja2 import Environment, PackageLoader, select_autoescape
+from sanic import Blueprint, json
 
 from App.config.Config import config, get_ql_config
 from App.ext import jd_browser
@@ -90,10 +90,10 @@ async def SendSMS(request: sanic.Request):
         }
         return json(res)
     ql_config = get_ql_config(int(qlkey))
-    subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
     ql = RemoteQL(ql_config["QL_CLIENTID"], ql_config["QL_SECRET"], ql_config["QLhost"], ql_config["QLport"])
     print("send_message", state, message, cpc_img_base64)
     if state and not cpc_img_base64 and not message:
+        subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
         res = {
             "success": True,
             "message": "",
@@ -107,6 +107,7 @@ async def SendSMS(request: sanic.Request):
         }
 
     elif not state and message:
+        await jd_browser.destroy_browser(int(data["Phone"]))
         res = {
             "success": False,
             "message": message,
@@ -116,6 +117,7 @@ async def SendSMS(request: sanic.Request):
             }
         }
     else:
+        subprocess.Popen(['python', 'destroy_browser.py', str(data["Phone"]), str(config.get("Closetime", "5"))])
         res = {
             "success": False,
             "message": "出现安全验证,",
@@ -270,7 +272,7 @@ async def GetUser(request):
                 "qlkey": 1,
                 "ck": item["value"],
                 "timestamp": item["timestamp"],
-                "remarks": item["remarks"],
+                "remarks": item["remarks"].split("@@")[0],
                 "nickname": await get_nickname(item["value"]),
                 "qrurl": ql_config.get("QRurl")
             }

@@ -1,10 +1,7 @@
 import json
 import time
 
-import asyncio
 import requests
-
-from App.utils import get_nickname
 
 
 class RemoteQL:

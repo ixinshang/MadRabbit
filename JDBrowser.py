@@ -1,16 +1,16 @@
 import re
-import subprocess
 
 import aiohttp
 import nest_asyncio
 import requests
+
+from App.config.Config import config
 
 nest_asyncio.apply()
 
 import asyncio
 import base64
 import random
-import threading
 import time
 
 import numpy as np
@@ -105,7 +105,7 @@ async def get_proxy():
     elif not proxy_pool:
         return None
     while True:
-        url = f"http://{proxy_pool}/random"
+        url = f"{proxy_pool}"
         res = requests.get(url)
         print(res.text)
         try:
@@ -141,21 +141,20 @@ class JDBrowser:
         browser = await self.open_browser()
         await browser.close()
 
-    @staticmethod
-    async def open_browser() -> Browser:
+    async def open_browser(self) -> Browser:
         args = {
-                '--no-sandbox',
-                '--disable-gpu',
-                '--disable-setuid-sandbox',
-            }
+            '--no-sandbox',
+            '--disable-gpu',
+            '--disable-setuid-sandbox',
+        }
         proxy = await get_proxy()
         if proxy:
             args.add('--proxy-server=' + proxy)
         browser = await launch(
-            args= args,
+            args=args,
             viewport={"width": 0, "height": 0, "isMobile": True},
-            dumpio=True,
-            autoClose=True
+            # dumpio=True,
+            autoClose=True,
         )
         return browser
 
@@ -173,7 +172,7 @@ class JDBrowser:
               "%2FLoginRedirect%3Fstate%3D2215723087%26returnurl%3Dhttps%253A%252F%252Fhome.m.jd.com%252FmyJd" \
               "%252Fnewhome.action%253Fsceneval%253D2%2526ufc%253D%2526&source=wq_passport"
         try:
-            await new_page.goto(url, timeout=5000)
+            await new_page.goto(url, timeout=30000)
         except Exception as e:
             print(e)
             await browser.close()
@@ -396,6 +395,7 @@ class JDBrowser:
         :param code:
         :return:
         """
+        print(self.page_dict)
         status, page = await self.get_page_by_phone(phone)
         if not status:
             return False

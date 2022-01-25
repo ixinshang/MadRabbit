@@ -1,6 +1,5 @@
 from jinja2 import Environment, PackageLoader, select_autoescape
 from sanic import html, Blueprint
-from sanic.response import redirect
 
 Login_bp = Blueprint('login')
 Login_bp.static("/", "./App/static")
