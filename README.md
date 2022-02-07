@@ -1,9 +1,7 @@
+# 适配最新的魔方验证，可以自动识别，暂未做手动验证，但是只支持腾讯和阿里的服务器，其他服务器可用腾讯阿里的代理，源码暂不放出来，放出来估计又凉了
 # 还有一些小bug，有大佬可以把他改进一下，暂时没空写
 # MadRabbit
 Nvjdc的前端和部分功能，主要镜像小，配置要求不高，可用配套的代理池，不用当心代理问题
-
-# 重要提示
-## 最好不要直接主机命令行启动该项目，否则可能要自行重启才能停止
 
 # 配置:
 1、新建一个项目
@@ -27,17 +25,8 @@ wget -O Config.json  https://ghproxy.com/https://raw.githubusercontent.com/ht944
 cd ..
 ```
 
-# 安装：
-## 方案一：自行构建镜像
-### 先下载源码，上传到此文件夹，再运行接下来的命令
-```
-docker build -t rabbit .
-```
-### 启动
-```
-docker run --name rabbit -d  -v "$(pwd)"/Config:/usr/src/Project/Config -p 5701:1234 rabbit:latest
-```
-## 方案二：使用我的镜像
+# 安装和启动：
+## 使用我的镜像
 ```
 docker pull ht944/rabbit:latest
 ```
@@ -45,30 +34,9 @@ docker pull ht944/rabbit:latest
 ```
 docker run --name rabbit -d  -v "$(pwd)"/Config:/usr/src/Project/Config -p 5701:1234 ht944/rabbit:latest
 ```
-
-## 非阿里和腾讯服务器可以忽略这一步:
-### 自行搭建代理池
-  1、代理池接口为 ip:port/random
-  响应为 ip:port的文本
-  
-  2、在配置文件中填写你的代理池地址和端口
-  
-### 用我的镜像搭建代理池
-  1、拉取docker-compose.yml文件
-  ```
-  wget -O docker-compose.yml  https://raw.githubusercontent.com/ht944/MadRabbit/main/docker-compose.yml
-  ```
-  国内用
-  ```
-  wget -O docker-compose.yml  https://ghproxy.com/https://raw.githubusercontent.com/ht944/MadRabbit/main/docker-compose.yml
-  ```
-  2、下载和启动镜像
-  ```
-  docker-compose up -d
-  ```
-  3、在配置文件中填写你的代理池地址和端口
-  
-### 使用稳定的http代理，不能有账号密码
+# 第一次启动时会下载浏览器，可能比较慢
+### 使用稳定的代理，不能有账号密码（支持socks，http代理）
+格式：http://xxx.xxx.xxx.xxx:xxxx 或 socks://xxx.xxx.xxx.xxx:xxxx
 设置配置文件中的proxy即可
 
 # 强调一遍
